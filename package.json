@@ -1,11 +1,25 @@
 {
-  "name": "tile-grid",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "tile-grid",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"@types/react": "^0.14.42",
+		"@types/react-dom": "^0.14.18",
+		"react": "^15.3.2",
+		"react-dom": "^15.3.2",
+		"source-map-loader": "^0.1.5",
+		"ts-loader": "^0.9.5",
+		"typescript": "^2.0.6",
+		"webpack": "^1.13.2"
+	},
+	"peerDependencies": {
+		"react": ">=15.3.2"
+	}
 }
