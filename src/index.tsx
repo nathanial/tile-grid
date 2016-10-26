@@ -5,6 +5,6 @@ import * as ReactDOM from "react-dom";
 import { TileGrid } from "./TileGrid";
 
 ReactDOM.render(
-    <TileGrid />,
+    <TileGrid rows={10} columns={10} />,
     document.getElementById("example")
 );
