@@ -1,6 +1,8 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path');
 
 module.exports = {
+	target: 'web',
 	entry: ["./src/index.tsx"],
 	output: {
 		filename: "./dist/bundle.js",
@@ -11,6 +13,9 @@ module.exports = {
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
+		root: [
+			path.join(__dirname, "node_modules")
+		],
 		extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
 	},
 

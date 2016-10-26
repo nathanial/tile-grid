@@ -10,8 +10,11 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.16.4"
+  },
   "devDependencies": {
+    "@types/lodash": "^4.14.37",
     "@types/react": "^0.14.42",
     "@types/react-dom": "^0.14.18",
     "copy-webpack-plugin": "^4.0.0",
