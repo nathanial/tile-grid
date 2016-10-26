@@ -6,13 +6,16 @@ import { TileGrid } from "./TileGrid";
 import { Tile } from './Tile';
 
 const tileStyle = {
-	background: 'red',
+	background: 'white',
 	border: '1px solid black'
 };
 
 ReactDOM.render(
-	<TileGrid rows={20} columns={20} tileWidth={20} tileHeight={20} tileStyle={tileStyle}>
-		<Tile x={0} y={0}>
+	<TileGrid rows={20} columns={20} tileWidth={30} tileHeight={30} tileStyle={tileStyle}>
+		<Tile row={0} column={0} style={{background: 'blue', color:'white'}}>
+			<span>F</span>
+		</Tile>
+		<Tile row={0} column={1} style={{background: 'blue', color:'white'}}>
 			<span>F</span>
 		</Tile>
 	</TileGrid>,
