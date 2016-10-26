@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"noImplicitAny": false,
+		"module": "commonjs",
+		"target": "es5",
+		"jsx": "react"
+	},
+	"files": [
+		"./src/index.tsx",
+		"./src/index.d.ts",
+		"./src/TileGrid.tsx"
+	]
+}
