@@ -20,6 +20,7 @@
     "@types/react-dom": "^0.14.18",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "react": "^15.3.2",

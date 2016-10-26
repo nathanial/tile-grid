@@ -1,3 +1,4 @@
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 
@@ -5,7 +6,8 @@ module.exports = {
 	target: 'web',
 	entry: ["./src/index.tsx"],
 	output: {
-		filename: "./dist/bundle.js",
+		path: __dirname + '/dist',
+		filename: "tile-grid.js"
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
@@ -25,7 +27,7 @@ module.exports = {
 			{ test: /\.tsx?$/, loader: "ts-loader" },
 			{
 				test: /\.less$/,
-				loader: "style!css!less"
+				loader: ExtractTextPlugin.extract("style-loader", "css!less")
 			}
 		],
 
@@ -48,7 +50,8 @@ module.exports = {
 		new CopyWebpackPlugin([
 			// {output}/file.txt
 			{ from: 'src/index.html' }
-		])
+		]),
+		new ExtractTextPlugin("[name].css")
 	],
 
 	devServer: {
