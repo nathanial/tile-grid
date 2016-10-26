@@ -10,14 +10,55 @@ const tileStyle = {
 	border: '1px solid black'
 };
 
-ReactDOM.render(
-	<TileGrid rows={20} columns={20} tileWidth={30} tileHeight={30} tileStyle={tileStyle}>
-		<Tile row={0} column={0} style={{background: 'blue', color:'white'}}>
-			<span>F</span>
-		</Tile>
-		<Tile row={0} column={1} style={{background: 'blue', color:'white'}}>
-			<span>F</span>
-		</Tile>
-	</TileGrid>,
+class App extends React.Component<{}, {}>{
+
+	state = {
+		tiles: {}
+	};
+
+	render(){
+		return (
+			<TileGrid rows={20} columns={20} tileWidth={30} tileHeight={30} tileStyle={tileStyle}
+								onOverTile={this.onOverTile}
+								onClickTile={this.onClickTile}>
+				{this._renderTiles()}
+			</TileGrid>
+		);
+	}
+
+	_renderTiles(){
+		const tiles = [];
+		for(let tileKey of _.keys(this.state.tiles)){
+			const value = this.state.tiles[tileKey];
+			let [tileX, tileY] = tileKey.split(',');
+			if(value){
+				tiles.push(
+					<Tile column={parseInt(tileX)} row={parseInt(tileY)} style={{background: 'blue', color: 'white'}}>
+					</Tile>
+				);
+			}
+		}
+		return tiles;
+	}
+
+	onOverTile = (row: number, column: number) => {
+	}
+
+	onClickTile = (row: number, column: number) => {
+		const oldTiles = _.cloneDeep(this.state.tiles);
+		const key = [row,column].join(',');
+		if(oldTiles[key]){
+			oldTiles[key] = false;
+		} else {
+			oldTiles[key] = true;
+		}
+		this.setState({
+			tiles: oldTiles
+		});
+	}
+
+}
+
+ReactDOM.render(<App />,
 	document.getElementById("example")
 );

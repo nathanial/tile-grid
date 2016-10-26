@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import { Tile } from './Tile';
+import * as $ from 'jquery';
 
 require('./TileGrid.less');
 
@@ -12,6 +13,8 @@ interface TileGridProps {
 	tileHeight?: number;
 	tileStyle?: Object;
 	style?: Object;
+	onOverTile(row: number, column: number);
+	onClickTile(row: number, column: number);
 }
 
 export class TileGrid extends React.Component<TileGridProps, {}> {
@@ -22,32 +25,55 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 		tileWidth: 10,
 		tileHeight: 10,
 		tileStyle: {},
-		style: {}
+		style: {},
+		onOverTile: () => {},
+		onClickTile: () => {}
 	};
+
+	private offset: JQueryCoordinates;
+	private tiles: {[location: string]: React.ReactHTMLElement<any>};
+
+	_onMouseMove = (event) => {
+		const {tileX, tileY} = this._findTileCoordinates(event);
+		this.props.onOverTile(tileX, tileY);
+	}
+	_onMouseOver = () => {
+		this.offset = $(this.refs['tileGrid']).offset();
+	}
+	_onClick = (event) => {
+		const {tileX, tileY} = this._findTileCoordinates(event);
+		this.props.onClickTile(tileY, tileX);
+	}
 
 	render(){
 		return (
-			<div className="tile-grid" style={this.props.style}>
+			<div ref="tileGrid" className="tile-grid" style={this.props.style}
+						onMouseMove={this._onMouseMove}
+						onMouseOver={this._onMouseOver}
+						onClick={this._onClick}>
 				{this._renderTiles()}
 			</div>
 		);
 	}
 
+	componentDidMount(){
+	}
+
 	_renderTiles(){
 		const rows = [];
-		const tiles = {};
+		this.tiles = {};
 		let rawChildren = React.Children.map(this.props.children, (child:any) => {
 			const key = [child.props.column, child.props.row].join(',');
-			tiles[key] = child;
+			this.tiles[key] = child;
 		});
 		for(let i = 0; i < this.props.rows; i++){
 			const columns = [];
 			for(let j = 0; j < this.props.columns; j++){
 				const key = [i,j].join(',');
-				if(tiles[key]){
+				if(this.tiles[key]){
 					columns.push(
-						<div className="tile" style={this._getTileStyle(i,j, tiles[key].props.style)}>
-							{tiles[key]}
+						<div className="tile" style={this._getTileStyle(i,j, this.tiles[key].props.style)}>
+							{this.tiles[key]}
 						</div>
 					);
 				} else {
@@ -69,5 +95,13 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 			left: column * width,
 			top: row * height
 		}, this.props.tileStyle, localStyle);
+	}
+
+	_findTileCoordinates(event){
+		const x = event.clientX - this.offset.left;
+		const y = event.clientY - this.offset.top;
+		const tileX = Math.floor(x / this.props.tileWidth);
+		const tileY = Math.floor(y / this.props.tileHeight);
+		return {tileX, tileY};
 	}
 }
