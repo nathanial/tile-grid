@@ -6,7 +6,7 @@ import * as $ from 'jquery';
 require('./TileGrid.less');
 
 interface ITileCollection {
-	[name: string]: React.ReactHTMLElement<any>[];
+	[name: string]: React.ReactHTMLElement<any>;
 }
 
 interface TileGridProps {
@@ -15,7 +15,6 @@ interface TileGridProps {
 	tileWidth?: number;
 	tileHeight?: number;
 	tileStyle?: Object;
-	tileSetStyle?: Object;
 	style?: Object;
 	onOverTile?: (row: number, column: number) => void;
 	onClickTile?: (row: number, column: number) => void;
@@ -30,7 +29,6 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 		tileHeight: 10,
 		tileStyle: {},
 		style: {},
-		tileSetStyle: {},
 		onOverTile: () => {},
 		onClickTile: () => {}
 	};
@@ -69,10 +67,7 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 		this.tiles = {} as ITileCollection;
 		let rawChildren = React.Children.map(this.props.children, (child:any) => {
 			const key = [child.props.column, child.props.row].join(',');
-			if(_.isUndefined(this.tiles[key])){
-				this.tiles[key] = [];
-			}
-			this.tiles[key].push(child);
+			this.tiles[key] = child;
 		});
 		for(let i = 0; i < this.props.rows; i++){
 			const columns = [];
@@ -80,22 +75,13 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 				const key = [i,j].join(',');
 				if(this.tiles[key]){
 					columns.push(
-						<div className="tile-set" style={this._getTileSetStyle(i,j)}>
-							{_.map(this.tiles[key], (tile) => {
-								const props = tile.props as TileProps;
-								return (
-									<div className="tile" style={this._getTileStyle(i,j, props.z, props.style)}>
-										{tile}
-									</div>
-								);
-							})}
+						<div className="tile" style={this._getTileStyle(i,j, this.tiles[key].props.style)}>
+							{this.tiles[key]}
 						</div>
 					);
 				} else {
 					columns.push(
-						<div className="tile-set" style={this._getTileSetStyle(i,j)}>
-							<div className="tile" style={this._getTileStyle(i,j, 0)}></div>
-						</div>
+						<div className="tile" style={this._getTileStyle(i,j)}></div>
 					);
 				}
 			}
@@ -104,28 +90,15 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 		return rows;
 	}
 
-	_getTileSetStyle(row: number, column: number){
-		const width = this.props.tileWidth;
-		const height = this.props.tileHeight;
-		return _.extend({
-			position: 'absolute',
-			width,
-			height,
-			left: column * width,
-			top: row * height
-		}, this.props.tileSetStyle);
-	}
-
-	_getTileStyle(row: number, column: number, z: number, localStyle: Object = {}): Object {
+	_getTileStyle(row: number, column: number, localStyle: Object = {}): Object {
 		const width = this.props.tileWidth;
 		const height = this.props.tileHeight;
 		return _.extend({}, {
 			position: 'absolute',
-			left: 0,
-			top: 0,
+			left: column * width,
+			top: row * height,
 			width,
-			height,
-			zIndex: z
+			height
 		}, this.props.tileStyle, localStyle);
 	}
 
