@@ -5,7 +5,6 @@ import * as $ from 'jquery';
 
 require('./TileGrid.less');
 
-
 interface TileGridProps {
 	columns: number;
 	rows: number;
