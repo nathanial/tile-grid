@@ -4,10 +4,13 @@ var path = require('path');
 
 module.exports = {
 	target: 'web',
-	entry: ["./src/index.tsx"],
+	entry: {
+		index: "./src/index.tsx",
+		app: "./src/app.tsx"
+	},
 	output: {
 		path: __dirname + '/dist',
-		filename: "tile-grid.js"
+		filename: "[name].js"
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
@@ -51,7 +54,7 @@ module.exports = {
 			// {output}/file.txt
 			{ from: 'src/index.html' }
 		]),
-		new ExtractTextPlugin("[name].css")
+		new ExtractTextPlugin("main.css")
 	],
 
 	devServer: {

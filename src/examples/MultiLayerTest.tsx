@@ -8,7 +8,7 @@ const tileStyle = {
 	border: '1px solid black'
 };
 
-export default class MultiLayerTest extends React.Component<{},{}> {
+export class MultiLayerTest extends React.Component<{},{}> {
 	render(){
 		return (
 			<TileGrid rows={10} columns={10} tileWidth={30} tileHeight={30} tileStyle={tileStyle}>

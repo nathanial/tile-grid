@@ -1,8 +1,9 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-import InteractiveTest from './examples/InteractiveTest';
-import MultiLayerTest from './examples/MultiLayerTest';
+import {TileGrid} from './TileGrid';
+import {Tile} from './Tile';
 
-ReactDOM.render(<MultiLayerTest />,
-	document.getElementById("example")
-);
+export = {
+	TileGrid,
+	Tile
+};
