@@ -1,6 +1,6 @@
 {
   "name": "tile-grid",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -41,6 +41,8 @@
   },
   "peerDependencies": {
     "react": ">=15.3.2",
-		"react-dom": ">=15.3.2"
+		"react-dom": ">=15.3.2",
+		"jquery": "*",
+		"lodash": "*"
   }
 }

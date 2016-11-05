@@ -3,7 +3,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 
 module.exports = {
-	target: 'web',
+	target: 'node',
 	entry: {
 		index: "./src/index.js",
 		app: "./src/app.tsx"
@@ -11,7 +11,7 @@ module.exports = {
 	output: {
 		path: __dirname + '/dist',
 		filename: "[name].js",
-		libraryTarget: "commonjs2"
+		libraryTarget: 'commonjs2'
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
@@ -45,8 +45,7 @@ module.exports = {
 	// assume a corresponding global variable exists and use that instead.
 	// This is important because it allows us to avoid bundling all of our
 	// dependencies, which allows browsers to cache those libraries between builds.
-	externals: {
-	},
+	externals: ["react", "react-dom", "jquery", "lodash"],
 
 	plugins: [
 		new CopyWebpackPlugin([
