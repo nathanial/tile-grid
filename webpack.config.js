@@ -11,7 +11,7 @@ module.exports = {
 	output: {
 		path: __dirname + '/dist',
 		filename: "[name].js",
-		libraryTarget: "umd"
+		libraryTarget: "commonjs2"
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
