@@ -103,6 +103,9 @@ export class TileGrid extends React.Component<TileGridProps, {}> {
 	}
 
 	_findTileCoordinates(event){
+		if(!this.offset){
+			this.offset = $(this.refs['tileGrid']).offset();
+		}
 		const x = event.clientX - this.offset.left;
 		const y = event.clientY - this.offset.top;
 		const tileX = Math.floor(x / this.props.tileWidth);
