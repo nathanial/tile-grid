@@ -5,12 +5,13 @@ var path = require('path');
 module.exports = {
 	target: 'web',
 	entry: {
-		index: "./src/index.tsx",
+		index: "./src/index.js",
 		app: "./src/app.tsx"
 	},
 	output: {
 		path: __dirname + '/dist',
-		filename: "[name].js"
+		filename: "[name].js",
+		libraryTarget: "umd"
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
